@@ -1,14 +1,18 @@
 {
   "localhost": {
+    "provider_url": "http://localhost:8545",
     "contract_address": "0xabc",
     "public_key": "0xabc",
     "private_key": "0123",
-    "provider_url": "http://localhost:8545"
+    "send_to": "0xabc",
+    "token_id": 1
   },
   "goerli": {
+    "provider_url": "https://eth-goerli.alchemyapi.io/v2/abc",
     "contract_address": "0xabc",
     "public_key": "0xabc",
     "private_key": "0123",
-    "provider_url": "https://eth-goerli.alchemyapi.io/v2/abc"
+    "send_to": "0xabc",
+    "token_id": 1
   }
 }

@@ -11,4 +11,9 @@ contract NFT is ERC721PresetMinterPauserAutoId {
       "https://storage.googleapis.com/motsui/"
     )
   {}
+
+  function transferToken(address reciever, uint256 tokenId) public {
+    require(this.ownerOf(tokenId) == msg.sender, "NOT OWNER");
+    safeTransferFrom(msg.sender, reciever, tokenId);
+  }
 }
