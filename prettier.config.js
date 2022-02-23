@@ -1,14 +1,16 @@
 module.exports = {
+  singleQuote: true,
+  arrowParens: 'avoid',
   overrides: [
     {
-      files: "*.sol",
+      files: '*.sol',
       options: {
-        printWidth: 80,
+        printWidth: 100,
         tabWidth: 2,
         useTabs: false,
         singleQuote: false,
         bracketSpacing: false,
-        explicitTypes: "always",
+        explicitTypes: 'always',
       },
     },
   ],

@@ -1,48 +1,29 @@
-const Web3 = require("web3");
-const config = require("config");
-const network = config[hre.network.name];
+const hre = require('hardhat');
+const Web3 = require('web3');
+const Config = require('config');
+const Contract = require('../artifacts/contracts/nft.sol/NFT.json');
 
 async function main() {
-  const web3 = new Web3(network.provider_url);
-  const contract = require("../artifacts/contracts/nft.sol/NFT.json");
-  const nftContract = new web3.eth.Contract(
-    contract.abi,
-    network.contract_address
-  );
-  const nonce = await web3.eth.getTransactionCount(
-    network.public_key,
-    "latest"
-  );
+  const config = Config[hre.network.name];
+  const web3 = new Web3(config.provider_url);
+  const contract = new web3.eth.Contract(Contract.abi, config.contract.address);
+  const nonce = await web3.eth.getTransactionCount(config.public_key, 'latest');
+
   const tx = {
-    from: network.public_key,
-    to: network.contract_address,
+    from: config.public_key,
+    to: config.contract.address,
     nonce: nonce,
     gas: 500000,
-    data: nftContract.methods.mint(network.public_key).encodeABI(),
+    data: contract.methods.mint(config.public_key).encodeABI(),
   };
-  const signPromise = web3.eth.accounts.signTransaction(
+  const signedTx = await web3.eth.accounts.signTransaction(
     tx,
-    network.private_key
+    config.private_key
   );
-  signPromise
-    .then((signedTx) => {
-      const tx = signedTx.rawTransaction;
-      if (tx !== undefined) {
-        web3.eth.sendSignedTransaction(tx, function (err, hash) {
-          if (!err) {
-            console.log("The hash of your transaction is: ", hash);
-          } else {
-            console.log(
-              "Something went wrong when submitting your transaction:",
-              err
-            );
-          }
-        });
-      }
-    })
-    .catch((err) => {
-      console.log("Promise failed:", err);
-    });
+  const transactionReceipt = await web3.eth.sendSignedTransaction(
+    signedTx.rawTransaction
+  );
+  console.log(`Transaction Hash: ${transactionReceipt.transactionHash}`);
 }
 
 main();

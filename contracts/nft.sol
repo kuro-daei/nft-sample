@@ -5,10 +5,6 @@ import "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAut
 
 contract NFT is ERC721PresetMinterPauserAutoId {
   constructor()
-    ERC721PresetMinterPauserAutoId(
-      "MOTSUI",
-      "MTI",
-      "https://storage.googleapis.com/motsui/"
-    )
+    ERC721PresetMinterPauserAutoId("MOTSUI", "MTI", "https://storage.googleapis.com/motsui/")
   {}
 }
