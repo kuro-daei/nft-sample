@@ -14,5 +14,13 @@ module.exports = {
       url: config["goerli"].provider_url,
       accounts: [config["goerli"].private_key],
     },
+    ropsten: {
+      url: config["ropsten"].provider_url,
+      accounts: [config["ropsten"].private_key],
+    },
+    rinkeby: {
+      url: config["rinkeby"].provider_url,
+      accounts: [config["rinkeby"].private_key],
+    },
   },
 };
